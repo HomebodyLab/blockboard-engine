@@ -1,0 +1,14 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Spring Boot-EngineApplication<engine>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "kr.blockboard.EngineApplication",
+			"projectName": "engine",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		}
+	]
+}
