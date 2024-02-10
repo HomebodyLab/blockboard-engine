@@ -1,0 +1,13 @@
+package kr.blockboard.log;
+
+public enum LogCode {
+    ENGINE_DEFAULT_0000,
+    ENGINE_DEFAULT_0001,
+    ENGINE_DEFAULT_0002,
+    ENGINE_API_0001,
+    ENGINE_API_0002,
+    ENGINE_BLOCK_0001,
+    ENGINE_BLOCK_0002,
+    ENGINE_BOARD_0001,
+    ENGINE_BOARD_0002;
+}

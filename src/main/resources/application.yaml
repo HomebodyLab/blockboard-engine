@@ -1,0 +1,4 @@
+locale:
+    language: ko_kr
+    messages:
+        encoding: UTF-8
