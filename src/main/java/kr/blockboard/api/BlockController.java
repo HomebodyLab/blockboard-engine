@@ -1,6 +1,12 @@
 package kr.blockboard.api;
 
+import kr.blockboard.log.LocaleType;
+import kr.blockboard.log.LocaleValue;
+import kr.blockboard.log.LogCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +25,14 @@ import kr.blockboard.block.BlockService;
 @RequestMapping("block")
 public class BlockController {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	private MessageSource messageSource;
 	private BlockService blockService = null;
 
 	@Autowired
-	public BlockController(BlockService blockService) {
+	public BlockController(MessageSource messageSource, BlockService blockService) {
+		this.messageSource = messageSource;
 		this.blockService = blockService;
 	}
 	
@@ -34,6 +44,8 @@ public class BlockController {
 	
 	@GetMapping(value = "single")
 	public ResponseEntity<Block> readBlock(@RequestParam("uuid") String uuid) {
+		logger.info(this.messageSource.getMessage(LogCode.ENGINE_DEFAULT_0000.name(), new String[]{"ABCD TEST"}, LocaleType.getLocale()));
+
 		Block block = this.blockService.readBlock(uuid);
 		return ResponseEntity.ok(block);
 	}
