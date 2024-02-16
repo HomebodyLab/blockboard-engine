@@ -1,4 +1,4 @@
-package kr.blockboard.log;
+package kr.blockboard.logger;
 
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;

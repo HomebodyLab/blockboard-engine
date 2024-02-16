@@ -1,4 +1,4 @@
-package kr.blockboard.log;
+package kr.blockboard.logger;
 
 /**
  * This class can call information from files set in application.yaml.

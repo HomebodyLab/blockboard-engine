@@ -1,10 +1,8 @@
 package kr.blockboard.api;
 
-import kr.blockboard.log.LocaleType;
-import kr.blockboard.log.LocaleValue;
-import kr.blockboard.log.LogCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import kr.blockboard.logger.LocaleType;
+import kr.blockboard.logger.LogCode;
+import kr.blockboard.logger.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
@@ -25,26 +23,24 @@ import kr.blockboard.block.BlockService;
 @RequestMapping("block")
 public class BlockController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-	private MessageSource messageSource;
+	private final Logger logger;
 	private BlockService blockService = null;
 
 	@Autowired
 	public BlockController(MessageSource messageSource, BlockService blockService) {
-		this.messageSource = messageSource;
+		this.logger = new Logger(getClass(), messageSource);
 		this.blockService = blockService;
 	}
 	
 	@PostMapping(value = "")
 	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody Block block) {
-		Map<String, Block> blocks = this.blockService.createBlock();
+		Map<String, Block> blocks = this.blockService.createBlock(block);
 		return ResponseEntity.ok(blocks);
 	}
 	
 	@GetMapping(value = "single")
 	public ResponseEntity<Block> readBlock(@RequestParam("uuid") String uuid) {
-		logger.info(this.messageSource.getMessage(LogCode.ENGINE_DEFAULT_0000.name(), new String[]{"ABCD TEST"}, LocaleType.getLocale()));
+		this.logger.info(LogCode.ENGINE_DEFAULT_0000, "ABCD TEST");
 
 		Block block = this.blockService.readBlock(uuid);
 		return ResponseEntity.ok(block);
@@ -63,8 +59,8 @@ public class BlockController {
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<Map<String, Block>> deleteBlock() {
-		Map<String, Block> blocks = this.blockService.deleteBlock();
+	public ResponseEntity<Map<String, Block>> deleteBlock(@RequestParam("uuid") String uuid) {
+		Map<String, Block> blocks = this.blockService.deleteBlock(uuid);
 		return ResponseEntity.ok(blocks);
 	}
 }

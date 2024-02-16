@@ -1,4 +1,4 @@
-package kr.blockboard.log;
+package kr.blockboard.logger;
 
 public enum LogCode {
     ENGINE_DEFAULT_0000,
