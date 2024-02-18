@@ -19,7 +19,7 @@ class LogCodeTest {
 	void contextLoads() {
 		this.logger.info(LogCode.EGN_DEF_0000, "TEST1");
 		this.logger.warn(LogCode.EGN_DEF_0001, "TEST2");
-		this.logger.info(LogCode.EGN_DEF_0002, "TEST3");
+		this.logger.debug(LogCode.EGN_DEF_0002, "TEST3");
 		this.logger.error(LogCode.EGN_DEF_0003, "TEST4");
 	}
 }
