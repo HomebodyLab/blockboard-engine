@@ -40,8 +40,6 @@ public class BlockController {
 	
 	@GetMapping(value = "single")
 	public ResponseEntity<Block> readBlock(@RequestParam("uuid") String uuid) {
-		this.logger.info(LogCode.ENGINE_DEFAULT_0000, "ABCD TEST");
-
 		Block block = this.blockService.readBlock(uuid);
 		return ResponseEntity.ok(block);
 	}
