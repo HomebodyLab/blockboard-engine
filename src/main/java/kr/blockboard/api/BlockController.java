@@ -1,6 +1,10 @@
 package kr.blockboard.api;
 
+import kr.blockboard.logger.LocaleType;
+import kr.blockboard.logger.LogCode;
+import kr.blockboard.logger.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +23,18 @@ import kr.blockboard.block.BlockService;
 @RequestMapping("block")
 public class BlockController {
 
+	private final Logger logger;
 	private BlockService blockService = null;
 
 	@Autowired
-	public BlockController(BlockService blockService) {
+	public BlockController(MessageSource messageSource, BlockService blockService) {
+		this.logger = new Logger(getClass(), messageSource);
 		this.blockService = blockService;
 	}
 	
 	@PostMapping(value = "")
 	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody Block block) {
-		Map<String, Block> blocks = this.blockService.createBlock();
+		Map<String, Block> blocks = this.blockService.createBlock(block);
 		return ResponseEntity.ok(blocks);
 	}
 	
@@ -51,8 +57,8 @@ public class BlockController {
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<Map<String, Block>> deleteBlock() {
-		Map<String, Block> blocks = this.blockService.deleteBlock();
+	public ResponseEntity<Map<String, Block>> deleteBlock(@RequestParam("uuid") String uuid) {
+		Map<String, Block> blocks = this.blockService.deleteBlock(uuid);
 		return ResponseEntity.ok(blocks);
 	}
 }

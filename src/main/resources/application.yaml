@@ -1,0 +1,10 @@
+locale:
+    language: en_us
+    messages:
+        encoding: UTF-8
+
+logging:
+    level:
+        root: off
+        logback: off
+        blockboard: debug

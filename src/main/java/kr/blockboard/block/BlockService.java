@@ -2,6 +2,8 @@ package kr.blockboard.block;
 
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,8 +11,10 @@ public class BlockService {
 
 	private Map<String, Block> blocks = new LinkedHashMap<>();
 
-	public Map<String, Block> createBlock() {
-		return new LinkedHashMap<>();
+	public Map<String, Block> createBlock(Block block) {
+		String uuid = UUID.randomUUID().toString();
+		this.blocks.put(uuid, block);
+		return this.blocks;
 	}
 
 	public Block readBlock(String uuid) {
@@ -27,7 +31,8 @@ public class BlockService {
 		return block;
 	}
 
-	public Map<String, Block> deleteBlock() {
-		return new LinkedHashMap<>();
+	public Map<String, Block> deleteBlock(String uuid) {
+		this.blocks.remove(uuid);
+		return this.blocks;
 	}
 }

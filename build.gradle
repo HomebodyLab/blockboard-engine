@@ -13,6 +13,12 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'ch.qos.logback:logback-core:1.4.14'
+	implementation 'ch.qos.logback:logback-classic:1.4.14'
+	implementation 'org.slf4j:slf4j-api:2.0.12'
+	implementation 'org.slf4j:slf4j-ext:2.0.12'
+	implementation 'ch.qos.cal10n:cal10n-api:0.8.1'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
