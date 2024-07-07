@@ -19,6 +19,8 @@ dependencies {
 	implementation 'org.slf4j:slf4j-ext:2.0.12'
 	implementation 'ch.qos.cal10n:cal10n-api:0.8.1'
 
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
