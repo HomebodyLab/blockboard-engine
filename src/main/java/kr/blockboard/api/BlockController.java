@@ -30,7 +30,6 @@ public class BlockController {
 	
 	@PostMapping(value = "")
 	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody Block block) {
-		logger.debug(LogCode.EGN_API_0000, block.toJson());
 		Map<String, Block> blocks = this.blockService.createBlock(block);
 		return ResponseEntity.ok(blocks);
 	}
