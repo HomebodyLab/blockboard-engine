@@ -1,20 +1,23 @@
 package kr.blockboard.block;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class Block {
-	private String uuid;
+	private UUID uuid;
 	private String title;
 	private String status;
 	private String description;
+	private String relation;
 	private LocalDateTime createDate;
 	private LocalDateTime updateDate;
 
-	public void setUuid(String uuid) {
+	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
 
-	public String getUuid() {
+	public UUID getUuid() {
 		return uuid;
 	}
 
@@ -36,5 +39,16 @@ public class Block {
 
 	public LocalDateTime getUpdateDate() {
 		return updateDate;
+	}
+
+	public String toJson() {
+		return "{" +
+				"uuid:\"" + uuid.toString() + "\"" +
+				", title:'" + title + "\"" +
+				", status:'" + status + "\"" +
+				", description:'" + description + "\"" +
+				", createDate:" + createDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) +
+				", updateDate:" + updateDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) +
+				'}';
 	}
 }

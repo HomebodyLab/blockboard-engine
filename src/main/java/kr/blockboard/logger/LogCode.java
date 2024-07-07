@@ -5,6 +5,7 @@ public enum LogCode {
     EGN_DEF_0001,
     EGN_DEF_0002,
     EGN_DEF_0003,
+    EGN_DEF_0004,
 
     EGN_API_0000,
     EGN_API_0001,

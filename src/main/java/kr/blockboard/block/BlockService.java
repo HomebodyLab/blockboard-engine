@@ -25,9 +25,9 @@ public class BlockService {
 		return this.blocks;
 	}
 
-	public Block updateBlock(String uuid, Block block) {
+	public Block updateBlock(UUID uuid, Block block) {
 		block.setUuid(uuid);
-		this.blocks.put(uuid, block);
+		this.blocks.put(uuid.toString(), block);
 		return block;
 	}
 

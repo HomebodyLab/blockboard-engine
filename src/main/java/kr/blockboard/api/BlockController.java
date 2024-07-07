@@ -1,23 +1,16 @@
 package kr.blockboard.api;
 
-import kr.blockboard.logger.LocaleType;
+import kr.blockboard.block.Block;
+import kr.blockboard.block.BlockService;
 import kr.blockboard.logger.LogCode;
 import kr.blockboard.logger.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import kr.blockboard.block.Block;
-import kr.blockboard.block.BlockService;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("block")
@@ -29,11 +22,15 @@ public class BlockController {
 	@Autowired
 	public BlockController(MessageSource messageSource, BlockService blockService) {
 		this.logger = new Logger(getClass(), messageSource);
+		this.logger.info(LogCode.EGN_API_0001, "BlockController.class");
+
 		this.blockService = blockService;
+		this.logger.info(LogCode.EGN_API_0002, "BlockService.class");
 	}
 	
 	@PostMapping(value = "")
 	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody Block block) {
+		logger.debug(LogCode.EGN_API_0000, block.toJson());
 		Map<String, Block> blocks = this.blockService.createBlock(block);
 		return ResponseEntity.ok(blocks);
 	}
@@ -52,7 +49,7 @@ public class BlockController {
 	
 	@PutMapping(value = "")
 	public ResponseEntity<Block> updateBlock(@RequestParam("uuid") String uuid, @RequestBody Block block) {
-		Block changeBlock = this.blockService.updateBlock(uuid, block);
+		Block changeBlock = this.blockService.updateBlock(UUID.fromString(uuid), block);
 		return ResponseEntity.ok(changeBlock);
 	}
 	
