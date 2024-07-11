@@ -20,8 +20,9 @@ public class Block {
 	private final LocalDateTime createDate;
 	private LocalDateTime updateDate;
 
-	protected Block(UUID uuid, LocalDateTime createDate) {
+	protected Block(UUID uuid, String title, LocalDateTime createDate) {
 		this.uuid = uuid;
+		this.title = title;
 		this.createDate = createDate;
 		this.updateDate = createDate;
 	}
@@ -32,6 +33,11 @@ public class Block {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public List<UUID> getAssignees() {
@@ -46,18 +52,30 @@ public class Block {
 		}
 
 		this.assignees.add(uuid);
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public void addAssignees(List<UUID> assignees) {
 		this.assignees.addAll(assignees);
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public String getStatus() {
 		return status;
 	}
 
+	public void setStatus(String status) {
+		this.status = status;
+		this.updateDate = LocalDateTime.now();
+	}
+
 	public String getDescription() {
 		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public List<UUID> getComments() {
@@ -66,6 +84,7 @@ public class Block {
 
 	public void addComment(UUID comment) {
 		this.comments.add(comment);
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public List<UUID> getRelations() {
@@ -79,6 +98,7 @@ public class Block {
 		}
 
 		this.relations.add(relation);
+		this.updateDate = LocalDateTime.now();
 	}
 
 	public LocalDateTime getCreateDate() {
@@ -87,6 +107,15 @@ public class Block {
 
 	public LocalDateTime getUpdateDate() {
 		return this.updateDate;
+	}
+
+	public void blockTranstion(BlockDto blockDto) {
+		this.title = blockDto.getTitle();
+		this.assignees = blockDto.getAssignees();
+		this.status = blockDto.getStatus();
+		this.description = blockDto.getDescription();
+		this.comments.addAll(blockDto.getComments());
+		this.relations.addAll(blockDto.getRelations());
 	}
 
 	public String toJson() throws JsonProcessingException{
