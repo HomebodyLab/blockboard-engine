@@ -7,6 +7,7 @@ import javax.management.relation.InvalidRoleValueException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ public class Block {
 	private String title;
 	private String status;
 	private String description;
+	private final List<UUID> comments = new LinkedList<>();
 	private final List<UUID> relations = new ArrayList<>();
 	private final LocalDateTime createDate;
 	private LocalDateTime updateDate;
@@ -40,6 +42,14 @@ public class Block {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public List<UUID> getComments() {
+		return comments;
+	}
+
+	public void addComment(UUID uuid) {
+		this.comments.add(uuid);
 	}
 
 	public List<UUID> getRelations() {
