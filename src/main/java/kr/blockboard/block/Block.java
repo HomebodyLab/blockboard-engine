@@ -20,10 +20,10 @@ public class Block {
 	private final LocalDateTime createDate;
 	private LocalDateTime updateDate;
 
-	protected Block(UUID uuid, LocalDateTime createDate, LocalDateTime updateDate) {
+	protected Block(UUID uuid, LocalDateTime createDate) {
 		this.uuid = uuid;
 		this.createDate = createDate;
-		this.updateDate = updateDate;
+		this.updateDate = createDate;
 	}
 
 	public UUID getUuid() {
@@ -64,21 +64,21 @@ public class Block {
 		return comments;
 	}
 
-	public void addComment(UUID uuid) {
-		this.comments.add(uuid);
+	public void addComment(UUID comment) {
+		this.comments.add(comment);
 	}
 
 	public List<UUID> getRelations() {
 		return relations;
 	}
 
-	public void addRelations(UUID uuid) throws InvalidRoleValueException {
-		if (this.uuid.toString().equals(uuid.toString())) {
+	public void addRelations(UUID relation) throws InvalidRoleValueException {
+		if (this.uuid.toString().equals(relation.toString())) {
 			// You cannot add your own UUID.
 			throw new InvalidRoleValueException();
 		}
 
-		this.relations.add(uuid);
+		this.relations.add(relation);
 	}
 
 	public LocalDateTime getCreateDate() {
@@ -90,12 +90,16 @@ public class Block {
 	}
 
 	public String toJson() throws JsonProcessingException{
+		String assignees = mapper.writeValueAsString(this.assignees);
+		String comments = mapper.writeValueAsString(this.comments);
 		String relations = mapper.writeValueAsString(this.relations);
 
         return "{" +
 				"uuid:\"" + uuid.toString() + "\"" +
 				", title:\"" + title + "\"" +
+				", assignees:\"" + assignees + "\"" +
 				", status:\"" + status + "\"" +
+				", comments:\"" + comments + "\"" +
 				", description:\"" + description + "\"" +
 				", relations:\"" +relations+ "/" +
 				", createDate:\"" + createDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + "\"" +

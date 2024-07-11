@@ -8,6 +8,6 @@ public class BlockFactory {
     public static Block newInstance() {
         LocalDateTime currentTime = LocalDateTime.now();
 
-        return new Block(UUID.randomUUID(), currentTime, currentTime);
+        return new Block(UUID.randomUUID(), currentTime);
     }
 }
