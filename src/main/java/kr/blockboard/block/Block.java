@@ -6,15 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.management.relation.InvalidRoleValueException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Block {
 	private final ObjectMapper mapper = new ObjectMapper();
 	private final UUID uuid;
 	private String title;
+	private List<UUID> assignees = new ArrayList<>();
 	private String status;
 	private String description;
 	private final List<UUID> comments = new LinkedList<>();
@@ -34,6 +32,24 @@ public class Block {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public List<UUID> getAssignees() {
+		return assignees;
+	}
+
+	public void addAssignee(UUID assignee) {
+		for (UUID uuid : this.assignees) {
+			if (uuid.equals(assignee)) {
+				return;
+			}
+		}
+
+		this.assignees.add(uuid);
+	}
+
+	public void addAssignees(List<UUID> assignees) {
+		this.assignees.addAll(assignees);
 	}
 
 	public String getStatus() {
