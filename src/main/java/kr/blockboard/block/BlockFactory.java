@@ -7,7 +7,11 @@ public class BlockFactory {
 
     public static Block newInstance(String title) {
         LocalDateTime currentTime = LocalDateTime.now();
-
         return new Block(UUID.randomUUID(), title, currentTime);
+    }
+
+    public static Block newInstance(BlockVo blockVo) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return new Block(blockVo, currentTime);
     }
 }

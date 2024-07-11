@@ -11,27 +11,35 @@ public class BlockService {
 
 	private Map<String, Block> blocks = new LinkedHashMap<>();
 
-	public Map<String, Block> createBlock(Block block) {
-		String uuid = UUID.randomUUID().toString();
-		this.blocks.put(uuid, block);
+	public Map<String, Block> createBlock(BlockVo blockVo) {
+		Block block = BlockFactory.newInstance(blockVo);
+		this.blocks.put(block.getUuid().toString(), block);
+
 		return this.blocks;
 	}
 
-	public Block readBlock(String uuid) {
-		return this.blocks.get(uuid);
+	public BlockVo readBlock(String uuid) {
+		return this.blocks.get(uuid).blockVoTranstion();
 	}
 
-	public Map<String, Block> readBlocks() {
-		return this.blocks;
+	public Map<String, BlockVo> readBlocks() {
+		Map<String, BlockVo> blockVos = new LinkedHashMap<>();
+
+		for (Map.Entry<String, Block> block : this.blocks.entrySet()) {
+			blockVos.put(block.getKey(), block.getValue().blockVoTranstion());
+		}
+
+		return blockVos;
 	}
 
-	public Block updateBlock(UUID uuid, Block block) {
-		this.blocks.put(uuid.toString(), block);
-		return block;
+	public BlockVo updateBlock(UUID uuid, BlockVo blockVo) {
+		Block block = BlockFactory.newInstance(blockVo);
+		this.blocks.put(uuid.toString(), BlockFactory.newInstance(blockVo));
+		return this.blocks.get(uuid.toString()).blockVoTranstion();
 	}
 
-	public Map<String, Block> deleteBlock(String uuid) {
+	public Map<String, BlockVo> deleteBlock(String uuid) {
 		this.blocks.remove(uuid);
-		return this.blocks;
+		return this.readBlocks();
 	}
 }

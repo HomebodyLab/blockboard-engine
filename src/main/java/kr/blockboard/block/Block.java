@@ -27,6 +27,13 @@ public class Block {
 		this.updateDate = createDate;
 	}
 
+	protected Block(BlockVo blockVo, LocalDateTime createDate) {
+		this.uuid = blockVo.getUuid();
+		this.title = blockVo.getTitle();
+		this.createDate = createDate;
+		this.updateDate = createDate;
+	}
+
 	public UUID getUuid() {
 		return uuid;
 	}
@@ -109,13 +116,16 @@ public class Block {
 		return this.updateDate;
 	}
 
-	public void blockTranstion(BlockDto blockDto) {
-		this.title = blockDto.getTitle();
-		this.assignees = blockDto.getAssignees();
-		this.status = blockDto.getStatus();
-		this.description = blockDto.getDescription();
-		this.comments.addAll(blockDto.getComments());
-		this.relations.addAll(blockDto.getRelations());
+	public void blockTranstion(BlockVo blockVo) {
+		this.assignees = blockVo.getAssignees();
+		this.status = blockVo.getStatus();
+		this.description = blockVo.getDescription();
+		this.comments.addAll(blockVo.getComments());
+		this.relations.addAll(blockVo.getRelations());
+	}
+
+	public BlockVo blockVoTranstion() {
+		return new BlockVo(this.title, this.assignees, this.status, this.description, this.createDate, this.updateDate);
 	}
 
 	public String toJson() throws JsonProcessingException{

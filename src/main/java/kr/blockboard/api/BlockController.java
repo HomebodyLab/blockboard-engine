@@ -2,6 +2,7 @@ package kr.blockboard.api;
 
 import kr.blockboard.block.Block;
 import kr.blockboard.block.BlockService;
+import kr.blockboard.block.BlockVo;
 import kr.blockboard.logger.LogCode;
 import kr.blockboard.logger.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,32 +30,32 @@ public class BlockController {
 	}
 	
 	@PostMapping(value = "")
-	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody Block block) {
-		Map<String, Block> blocks = this.blockService.createBlock(block);
+	public ResponseEntity<Map<String, Block>> createBlock(@RequestBody BlockVo blockVo) {
+		Map<String, Block> blocks = this.blockService.createBlock(blockVo);
 		return ResponseEntity.ok(blocks);
 	}
 	
 	@GetMapping(value = "single")
-	public ResponseEntity<Block> readBlock(@RequestParam("uuid") String uuid) {
-		Block block = this.blockService.readBlock(uuid);
+	public ResponseEntity<BlockVo> readBlock(@RequestParam("uuid") String uuid) {
+		BlockVo block = this.blockService.readBlock(uuid);
 		return ResponseEntity.ok(block);
 	}
 	
 	@GetMapping(value = "multiple")
-	public ResponseEntity<Map<String, Block>> readBlocks() {
-		Map<String, Block> blocks = this.blockService.readBlocks();
+	public ResponseEntity<Map<String, BlockVo>> readBlocks() {
+		Map<String, BlockVo> blocks = this.blockService.readBlocks();
 		return ResponseEntity.ok(blocks);
 	}
 	
 	@PutMapping(value = "")
-	public ResponseEntity<Block> updateBlock(@RequestParam("uuid") String uuid, @RequestBody Block block) {
-		Block changeBlock = this.blockService.updateBlock(UUID.fromString(uuid), block);
+	public ResponseEntity<BlockVo> updateBlock(@RequestParam("uuid") String uuid, @RequestBody BlockVo blockVo) {
+		BlockVo changeBlock = this.blockService.updateBlock(UUID.fromString(uuid), blockVo);
 		return ResponseEntity.ok(changeBlock);
 	}
 	
 	@DeleteMapping(value = "")
-	public ResponseEntity<Map<String, Block>> deleteBlock(@RequestParam("uuid") String uuid) {
-		Map<String, Block> blocks = this.blockService.deleteBlock(uuid);
+	public ResponseEntity<Map<String, BlockVo>> deleteBlock(@RequestParam("uuid") String uuid) {
+		Map<String, BlockVo> blocks = this.blockService.deleteBlock(uuid);
 		return ResponseEntity.ok(blocks);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public class BlockDto {
+public class BlockVo {
 
     private UUID uuid;
     private String title;
@@ -18,6 +18,16 @@ public class BlockDto {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
+    public BlockVo(String title, List<UUID> assignees, String status, String description, LocalDateTime createDate, LocalDateTime updateDate) {
+        this.uuid = UUID.randomUUID();
+        this.title = title;
+        this.assignees = assignees;
+        this.status = status;
+        this.description = description;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -26,32 +36,16 @@ public class BlockDto {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public List<UUID> getAssignees() {
         return assignees;
-    }
-
-    public void setAssignees(List<UUID> assignees) {
-        this.assignees = assignees;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public List<UUID> getComments() {
@@ -68,9 +62,5 @@ public class BlockDto {
 
     public LocalDateTime getUpdateDate() {
         return updateDate;
-    }
-
-    public void setUpdateDate(LocalDateTime updateDate) {
-        this.updateDate = updateDate;
     }
 }
